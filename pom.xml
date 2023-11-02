@@ -8,11 +8,11 @@
 		<version>3.0.6</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.springappcui</groupId>
-	<artifactId>casestudy</artifactId>
+	<groupId>com.vaibhavtraders</groupId>
+	<artifactId>gstapp</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>casestudy</name>
-	<description>Project for Case Study Final</description>
+	<name>gstapp</name>
+	<description>Project Vaibhav Traders GST Application</description>
 	<properties>
 		<java.version>17</java.version>
 	</properties>
