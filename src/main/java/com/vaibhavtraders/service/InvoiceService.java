@@ -191,6 +191,18 @@ public class InvoiceService {
 			InvoiceDTO invDTO = new InvoiceDTO();
 			if(invoice != null) {
 				invDTO.setInvoiceItems(invoice.getInvoiceItems());
+				invDTO.setInvoiceNo(invoice.getInvoiceNo());
+				invDTO.setDate(invoice.getDate());
+				invDTO.setChallanNo(invoice.getChallanNo());
+				invDTO.setChallanDate(invoice.getChallanDate());
+				invDTO.setPoNo(invoice.getPoNo());
+				invDTO.setPoDate(invoice.getPoDate());
+				invDTO.setLrNo(invoice.getLrNo());
+				invDTO.seteWayNo(invoice.geteWayNo());
+				invDTO.setTotalTaxableAmount(invoice.getTotalTaxableAmount());
+				invDTO.setTotalAmount(invoice.getTotalAmount());
+				invDTO.setDeliveryMode(invoice.getDeliveryMode());
+				invDTO.setCustomer(invoice.getCustomer());
 			}
 			responseObject.setInvoiceDTO(invDTO);
 			responseObject.setSuccessMessage("Invoice Found with given id : " + invoiceId);

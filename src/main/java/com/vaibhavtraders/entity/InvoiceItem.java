@@ -1,5 +1,7 @@
 package com.vaibhavtraders.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -13,6 +15,7 @@ public class InvoiceItem {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
+	@JsonBackReference
     @ManyToOne
     @JoinColumn(name = "invoice_id")
     private Invoice invoice;
