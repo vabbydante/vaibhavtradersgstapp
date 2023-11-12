@@ -91,6 +91,13 @@ public class VaibhavTradersRestController {
 		return countryService.createCountry(countryDTO);
 	}
 	
+	/* Implementing find by id for Country to support fetching of specific 
+	 * country data for Android Spinners and webapp. */
+	@GetMapping("/countries")
+	public ResponseObject findCountryById(@RequestParam Long countryID) throws GeneralException {
+		return countryService.findCountryById(countryID);
+	}
+	
 	@GetMapping("/countries/findall")
 	public ResponseObject findAllCountries() throws GeneralException {
 		return countryService.findAllCountries();
@@ -121,6 +128,13 @@ public class VaibhavTradersRestController {
 	@PostMapping("/states/add")
 	public ResponseObject createState(@RequestBody StateDTO stateDTO) throws GeneralException {
 		return stateService.createState(stateDTO);
+	}
+	
+	/* Implementing find by id for States to support fetching of specific 
+	 * country data for Android Spinners and webapp. */
+	@GetMapping("/states")
+	public ResponseObject findStateById(@RequestParam Long stateID) throws GeneralException {
+		return stateService.findStateById(stateID);
 	}
 	
 	@GetMapping("/states/findall")

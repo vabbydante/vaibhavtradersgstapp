@@ -47,6 +47,28 @@ public class StateService {
 		}
 		return responseObject;
 	}
+	
+	public ResponseObject findStateById(Long stateID) throws GeneralException {
+		logger.info("Find state by ID method triggered.");
+		ResponseObject responseObject = new ResponseObject();
+		try {
+			if (stateID == null) {
+				responseObject.setFailureMessage("State not found for given ID : " + stateID);
+				return responseObject;
+			}
+			State state = stateBO.getStateById(stateID);
+			StateDTO stateDTO = new StateDTO();
+			if(state != null) {
+				stateDTO.setStateID(state.getStateID());
+				stateDTO.setStateName(state.getStateName());
+			}
+			responseObject.setStateDTO(stateDTO);
+			responseObject.setSuccessMessage("State found with given ID : " + stateID);
+		} catch (GeneralException e) {
+			responseObject.setFailureMessage("Error while finding the State : " + e.getMessage());
+		}
+		return responseObject;
+	}
 
 	public ResponseObject findAllStates() throws GeneralException {
 		logger.info("Find all states method triggered.");

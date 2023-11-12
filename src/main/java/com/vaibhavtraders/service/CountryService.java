@@ -49,6 +49,28 @@ public class CountryService {
 		return responseObject;
 	}
 	
+	public ResponseObject findCountryById(Long countryID) throws GeneralException {
+		logger.info("Find country by id method triggered.");
+		ResponseObject responseObject = new ResponseObject();
+		try {
+			if (countryID == null) {
+				responseObject.setFailureMessage("Country Not Found. for given Id : " + countryID);
+				return responseObject;
+			}
+			Country country = countryBO.getCountryById(countryID);
+			CountryDTO countryDTO = new CountryDTO();
+			if(country != null) {
+				countryDTO.setCountryID(country.getCountryID());
+				countryDTO.setCountryName(country.getCountryName());
+			}
+			responseObject.setCountryDTO(countryDTO);
+			responseObject.setSuccessMessage("Country found with given ID : " + countryID);
+		} catch (GeneralException e) {
+			responseObject.setFailureMessage("Error while finding the Country : " + e.getMessage());
+		}
+		return responseObject;
+	}
+	
 	public ResponseObject findAllCountries() throws GeneralException {
 		logger.info("Find all countries method triggered");
 		ResponseObject responseObject = new ResponseObject();

@@ -21,9 +21,6 @@ public class ProductBO {
 			if(p.getName() == null) {
 				throw new GeneralException("Product Name cannot be empty.");
 			}
-			if(p.getProductType() == null) {
-				throw new GeneralException("Product Type cannot be empty.");
-			}
 		} catch (GeneralException e) {
 			throw new GeneralException("Error while inserting product.");
 		}

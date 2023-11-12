@@ -27,6 +27,17 @@ public class StateBO {
 		return stateRepository.save(c);
 	}
 	
+	public State getStateById(Long s) throws GeneralException {
+		try {
+			if (s == null) {
+				throw new GeneralException("State id cannot be blank.");
+			}
+		} catch (GeneralException e) {
+			throw new GeneralException("Error while finding state in the DB.");
+		}
+		return stateRepository.findById(s).orElse(null);
+	}
+	
 	public List<State> findAllStates() throws GeneralException {
 		List<State> allStatesList = new ArrayList<State>();
 		try {

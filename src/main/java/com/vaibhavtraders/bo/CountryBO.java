@@ -27,6 +27,17 @@ public class CountryBO {
 		return countryRepository.save(c);
 	}
 	
+	public Country getCountryById(Long c) throws GeneralException {
+		try {
+			if(c == null || "".equals(c)) {
+				throw new GeneralException("Country ID Cannot be blank");
+			}
+		} catch (GeneralException e) {
+			throw new GeneralException("Error while finding Country in DB.");
+		}
+		return countryRepository.findById(c).orElse(null);
+	}
+	
 	public List<Country> findAllCountries() throws GeneralException{
 		List<Country> allCountriesList = new ArrayList<Country>();
 		try {
