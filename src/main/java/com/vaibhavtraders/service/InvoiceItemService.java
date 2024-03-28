@@ -26,7 +26,7 @@ public class InvoiceItemService {
 	InvoiceBO invoiceBO;
 
 	@Autowired
-	ProductBO productBO; // Not in use, remove later.
+	ProductBO productBO;
 
 	public ResponseObject createInvoiceItems(Long invoiceId, List<InvoiceItem> invoiceItems) throws GeneralException {
 	    // Retrieve the corresponding invoice from the database

@@ -20,6 +20,7 @@ import com.vaibhavtraders.dto.StateDTO;
 import com.vaibhavtraders.entity.InvoiceItem;
 import com.vaibhavtraders.exception.GeneralException;
 import com.vaibhavtraders.requests.InvoiceCreationUpdationRequest;
+import com.vaibhavtraders.requests.InvoiceMonthYearRequest;
 import com.vaibhavtraders.response.ResponseObject;
 import com.vaibhavtraders.service.CountryService;
 import com.vaibhavtraders.service.CustomerService;
@@ -182,9 +183,14 @@ public class VaibhavTradersRestController {
         return invoiceService.findAllInvoices();
     }*/
 
-    @GetMapping("/invoice/byMonthYear")
+    /*@GetMapping("/invoice/byMonthYear")
     public ResponseObject findInvoicesByMonthYear(@RequestParam int year, @RequestParam Month month) throws GeneralException {
         return (ResponseObject) invoiceService.getInvoicesForMonthYear(year, month);
+    }*/
+    
+    @GetMapping("/invoice/byMonthYear")
+    public ResponseObject findInvoicesByMonthYear(@RequestBody InvoiceMonthYearRequest monthYearRequest) throws GeneralException {
+    	return invoiceService.getInvoicesForMonthYear(monthYearRequest);
     }
     
     //InvoiceItem

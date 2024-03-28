@@ -2,6 +2,7 @@ package com.vaibhavtraders.service;
 
 /**
  * @author Vaibhav Gupta
+ * This class is made for implementation of Invoice Functionality.
  *
  */
 
@@ -30,6 +31,7 @@ import com.vaibhavtraders.entity.Invoice;
 import com.vaibhavtraders.entity.State;
 import com.vaibhavtraders.exception.GeneralException;
 import com.vaibhavtraders.requests.InvoiceCreationUpdationRequest;
+import com.vaibhavtraders.requests.InvoiceMonthYearRequest;
 import com.vaibhavtraders.response.ResponseObject;
 
 @Service
@@ -245,18 +247,18 @@ public class InvoiceService {
 		return responseObject;
 	}
 
-	public ResponseObject getInvoicesForMonthYear(int year, Month month) throws GeneralException {
+	public ResponseObject getInvoicesForMonthYear(InvoiceMonthYearRequest invoiceMonthYearRequest) throws GeneralException {
 		// Logic to find out start date and end date of a given month on basis of year
 		// and month.
 		ResponseObject responseObject = new ResponseObject();
 		List<Invoice> resultInvoices = new ArrayList<Invoice>();
 		List<InvoiceDTO> resultInvoicesDTOList = new ArrayList<InvoiceDTO>();
-		if(month == null) {
+		if(invoiceMonthYearRequest.getMonth() == null) {
 			responseObject.setFailureMessage("Error. Empty Data");
 			return responseObject;
 		}
 		try {
-			LocalDate startDate = LocalDate.of(year, month, 1);
+			LocalDate startDate = LocalDate.of(invoiceMonthYearRequest.getYear(), invoiceMonthYearRequest.getMonth(), 1);
 			LocalDate endDate = startDate.plusMonths(1).minusDays(1);
 			
 			resultInvoices = invoiceBO.findByDateBetween(startDate, endDate); 
