@@ -71,6 +71,56 @@ public class ProductService {
 		return responseObject;
 	}
 	
+	public ResponseObject editProduct(@RequestBody ProductDTO productDTO) throws GeneralException{
+		logger.info("Edit product method triggered inside Service Layer");
+		logger.info("Before updating in the table : " + productDTO);
+		ResponseObject responseObject = new ResponseObject();
+		try {
+			Product p = new Product();
+			p.setProductID(productDTO.getProductID());
+			p.setName(productDTO.getName());
+			p.setProductDescription(productDTO.getProductDescription());
+			p.setHsnHacCode(productDTO.getHsnHacCode());
+			p.setUnitOfMeasurement(productDTO.getUnitOfMeasurement());
+			p.setStock(productDTO.getStock());
+			p.setProductType(productDTO.getProductType());
+			p.setGstPercentage(productDTO.getGstPercentage());
+			p.setCessPercentage(productDTO.getCessPercentage());
+			p.setCessAmount(productDTO.getCessAmount());
+			p.setSellPrice(productDTO.getSellPrice());
+			p.setSellPriceIncludingTax(productDTO.getSellPriceIncludingTax());
+			p.setPurchasePrice(productDTO.getPurchasePrice());
+			p.setPurchasePriceIncludingTax(productDTO.getPurchasePriceIncludingTax());
+			p.setProductImage(productDTO.getProductImage());
+			Product product = productBO.insert(p);
+			
+			if(product != null) {
+				productDTO.setProductID(product.getProductID());
+				productDTO.setName(product.getName());
+				productDTO.setProductDescription(product.getProductDescription());
+				productDTO.setHsnHacCode(product.getHsnHacCode());
+				productDTO.setUnitOfMeasurement(product.getUnitOfMeasurement());
+				productDTO.setStock(product.getStock());
+				productDTO.setProductType(product.getProductType());
+				productDTO.setGstPercentage(product.getGstPercentage());
+				productDTO.setCessPercentage(product.getCessPercentage());
+				productDTO.setCessAmount(product.getCessAmount());
+				productDTO.setSellPrice(product.getSellPrice());
+				productDTO.setSellPriceIncludingTax(product.getSellPriceIncludingTax());
+				productDTO.setPurchasePrice(product.getPurchasePrice());
+				productDTO.setPurchasePriceIncludingTax(product.getPurchasePriceIncludingTax());
+				productDTO.setProductImage(product.getProductImage());
+				responseObject.setProductDTO(productDTO);
+				responseObject.setSuccessMessage("Product updated successfully!");
+				//all sysouts. skipping for now.
+			}
+		} catch (GeneralException e) {
+			responseObject.setFailureMessage("Error while creating product.");
+			logger.error(e);
+		}
+		return responseObject;
+	}
+	
 	public ResponseObject findProduct(Long productId) throws GeneralException {
 		logger.info("Find product method triggered.");
 		ResponseObject responseObject = new ResponseObject();

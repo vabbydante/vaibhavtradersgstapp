@@ -4,6 +4,7 @@ import java.time.Month;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -30,6 +31,7 @@ import com.vaibhavtraders.service.InvoiceService;
 import com.vaibhavtraders.service.ProductService;
 import com.vaibhavtraders.service.StateService;
 
+@CrossOrigin(origins="http://localhost:3000")
 @RestController
 public class VaibhavTradersRestController {
 	
@@ -58,6 +60,11 @@ public class VaibhavTradersRestController {
 	@PostMapping("/products/add")
 	public ResponseObject createProduct(@RequestBody ProductDTO productDTO) throws GeneralException {
 		return productService.createProduct(productDTO);
+	}
+	
+	@PostMapping("/products/edit")
+	public ResponseObject editProduct(@RequestBody ProductDTO productDTO) throws GeneralException {
+		return productService.editProduct(productDTO);
 	}
 	
 	@GetMapping("/products/findall")

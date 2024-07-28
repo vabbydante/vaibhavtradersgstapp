@@ -26,14 +26,5 @@ public class GstappApplication {
 		/*                   INNER METHODS AND DATABASE TRANSACTION                     */
 		// Backend Response > Repository > BO > Service > Controller(API Endpoints) > Frontend.
 		ApplicationContext ctx = SpringApplication.run(GstappApplication.class, args);
-		
-		/*ProductBO productBO = ctx.getBean(ProductBO.class);
-		Product p1 = new Product();
-		p1.setName("Lite Chiwda.");
-		p1.setProductDescription("Just a chiwda");
-		p1.setCessAmount(22.00);
-		p1.setProductType(ProductType.TAXABLE);
-		Product p1p = productBO.insert(p1);*/
 	}
-
 }
