@@ -57,38 +57,53 @@ public class VaibhavTradersRestController {
 	StateService stateService;
 	
 	//Products
-	@PostMapping("/products/add")
+	@PostMapping("/products/add.vt")
 	public ResponseObject createProduct(@RequestBody ProductDTO productDTO) throws GeneralException {
 		return productService.createProduct(productDTO);
 	}
 	
-	@PostMapping("/products/edit")
+	@PostMapping("/products/addMultipleProducts.vt")
+	public ResponseObject createProducts(@RequestBody List<ProductDTO> productDTOList) throws GeneralException {
+		return productService.createProducts(productDTOList);
+	}
+	
+	@PostMapping("/products/edit.vt")
 	public ResponseObject editProduct(@RequestBody ProductDTO productDTO) throws GeneralException {
 		return productService.editProduct(productDTO);
 	}
 	
-	@GetMapping("/products/findall")
+	@GetMapping("/products/findall.vt")
 	public ResponseObject findAllProducts() throws GeneralException {
 		return productService.findAllProducts();
 	}
 	
-	@PostMapping("/products/deleteproduct")
+	@PostMapping("/products/deleteproduct.vt")
 	public ResponseObject deleteProduct(@RequestBody ProductDTO productDTO) throws GeneralException {
 		return productService.deleteProduct(productDTO);
 	}
 	
 	//Customers
-	@PostMapping("/customers/add")
+	@PostMapping("/customers/add.vt")
 	public ResponseObject createCustomer(@RequestBody CustomerDTO customerDTO) throws GeneralException {
 		return customerService.createCustomer(customerDTO);
 	}
 	
-	@GetMapping("/customers/findall")
+	@PostMapping("/customers/addMultipleCustomers.vt")
+	public ResponseObject createCustomers(@RequestBody List<CustomerDTO> customerDTO) throws GeneralException {
+		return customerService.createCustomers(customerDTO);
+	}
+	
+	@PostMapping("/customers/edit.vt")
+	public ResponseObject editCustomer(@RequestBody CustomerDTO customerDTO) throws GeneralException {
+		return customerService.editCustomer(customerDTO);
+	}
+	
+	@GetMapping("/customers/findall.vt")
 	public ResponseObject findAllCustomers() throws GeneralException {
 		return customerService.findAllCustomers();
 	}
 	
-	@PostMapping("/customers/deletecustomer")
+	@PostMapping("/customers/deletecustomer.vt")
 	public ResponseObject deleteCustomer(@RequestBody CustomerDTO customerDTO) throws GeneralException {
 		return customerService.deleteCustomer(customerDTO);
 	}

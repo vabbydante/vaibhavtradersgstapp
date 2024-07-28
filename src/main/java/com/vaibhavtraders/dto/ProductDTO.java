@@ -107,15 +107,5 @@ public class ProductDTO {
 	}
 	public void setProductImage(String productImage) {
 		this.productImage = productImage;
-	}
-	@Override
-	public String toString() {
-		return "ProductDTO [productID=" + productID + ", name=" + name + ", productDescription=" + productDescription
-				+ ", hsnHacCode=" + hsnHacCode + ", unitOfMeasurement=" + unitOfMeasurement + ", stock=" + stock
-				+ ", productType=" + productType + ", gstPercentage=" + gstPercentage + ", cessPercentage="
-				+ cessPercentage + ", cessAmount=" + cessAmount + ", sellPrice=" + sellPrice
-				+ ", sellPriceIncludingTax=" + sellPriceIncludingTax + ", purchasePrice=" + purchasePrice
-				+ ", purchasePriceIncludingTax=" + purchasePriceIncludingTax + ", productImage=" + productImage + "]";
-	}
-	
+	}	
 }

@@ -71,6 +71,58 @@ public class ProductService {
 		return responseObject;
 	}
 	
+	public ResponseObject createProducts(@RequestBody List<ProductDTO> productDTOList) throws GeneralException {
+		logger.info("Create product method triggered inside Service Layer");
+		logger.info("Before updating in the table : " + productDTOList);
+		ResponseObject responseObject = new ResponseObject();
+		List<ProductDTO> productDTOListToReturn = new ArrayList<ProductDTO>();
+		try {
+			for (ProductDTO products : productDTOList) {
+				Product p = new Product();
+				ProductDTO productDTO = new ProductDTO();
+				p.setName(products.getName());
+				p.setProductDescription(products.getProductDescription());
+				p.setHsnHacCode(products.getHsnHacCode());
+				p.setUnitOfMeasurement(products.getUnitOfMeasurement());
+				p.setStock(products.getStock());
+				p.setProductType(products.getProductType());
+				p.setGstPercentage(products.getGstPercentage());
+				p.setCessPercentage(products.getCessPercentage());
+				p.setCessAmount(products.getCessAmount());
+				p.setSellPrice(products.getSellPrice());
+				p.setSellPriceIncludingTax(products.getSellPriceIncludingTax());
+				p.setPurchasePrice(products.getPurchasePrice());
+				p.setPurchasePriceIncludingTax(products.getPurchasePriceIncludingTax());
+				p.setProductImage(products.getProductImage());
+				Product product = productBO.insert(p);
+				if(product != null) {
+					productDTO.setProductID(product.getProductID());
+					productDTO.setName(product.getName());
+					productDTO.setProductDescription(product.getProductDescription());
+					productDTO.setHsnHacCode(product.getHsnHacCode());
+					productDTO.setUnitOfMeasurement(product.getUnitOfMeasurement());
+					productDTO.setStock(product.getStock());
+					productDTO.setProductType(product.getProductType());
+					productDTO.setGstPercentage(product.getGstPercentage());
+					productDTO.setCessPercentage(product.getCessPercentage());
+					productDTO.setCessAmount(product.getCessAmount());
+					productDTO.setSellPrice(product.getSellPrice());
+					productDTO.setSellPriceIncludingTax(product.getSellPriceIncludingTax());
+					productDTO.setPurchasePrice(product.getPurchasePrice());
+					productDTO.setPurchasePriceIncludingTax(product.getPurchasePriceIncludingTax());
+					productDTO.setProductImage(product.getProductImage());
+					productDTOListToReturn.add(productDTO);
+				}
+			}
+			responseObject.setProductDTOList(productDTOListToReturn);
+			responseObject.setSuccessMessage("Created product successfully!");
+		} catch (GeneralException e) {
+			responseObject.setFailureMessage("Error while creating products." + e);
+			logger.error(e);
+		}
+		return responseObject;
+	}
+	
 	public ResponseObject editProduct(@RequestBody ProductDTO productDTO) throws GeneralException{
 		logger.info("Edit product method triggered inside Service Layer");
 		logger.info("Before updating in the table : " + productDTO);
