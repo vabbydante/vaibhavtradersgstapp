@@ -13,6 +13,7 @@ import com.vaibhavtraders.dto.StateDTO;
 import com.vaibhavtraders.entity.State;
 import com.vaibhavtraders.exception.GeneralException;
 import com.vaibhavtraders.response.ResponseObject;
+import com.vaibhavtraders.response.StateData;
 
 @Service
 public class StateService {
@@ -109,5 +110,29 @@ public class StateService {
 			responseObject.setFailureMessage("Error while deleting State with ID : " + stateDTO.getStateID());
 		}
 		return responseObject;
+	}
+	
+	/**
+	 * Method to return State Data for State Dropdowns
+	 */
+	public List<StateData> getStateData() {
+		logger.info("getStateData method triggered.");
+		List<StateData> stateData = new ArrayList<StateData>();
+		List<State> allStates = new ArrayList<State>();
+		try {
+			allStates = stateBO.findAllStates();
+			if(allStates.size() > 0) {
+				for (State state : allStates) {
+					StateData stData = new StateData();
+					stData.setId(state.getStateID());
+					stData.setName(state.getStateName());
+					stateData.add(stData);
+				}
+			}
+		} catch (Exception e) {
+			logger.error("Error inside getStateData method in StateService", e);
+			e.printStackTrace();
+		}
+		return stateData;
 	}
 }

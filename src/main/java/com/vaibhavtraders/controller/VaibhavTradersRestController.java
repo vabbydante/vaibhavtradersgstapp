@@ -23,6 +23,7 @@ import com.vaibhavtraders.exception.GeneralException;
 import com.vaibhavtraders.requests.InvoiceCreationUpdationRequest;
 import com.vaibhavtraders.requests.InvoiceMonthYearRequest;
 import com.vaibhavtraders.response.ResponseObject;
+import com.vaibhavtraders.response.StateData;
 import com.vaibhavtraders.service.CountryService;
 import com.vaibhavtraders.service.CustomerService;
 import com.vaibhavtraders.service.DeliveryModeService;
@@ -168,6 +169,11 @@ public class VaibhavTradersRestController {
 	@PostMapping("/states/deletestate")
 	public ResponseObject deleteState(@RequestBody StateDTO stateDTO) throws GeneralException {
 		return stateService.deleteState(stateDTO);
+	}
+	
+	@GetMapping("/states/statedata")
+	public List<StateData> getStateData() throws GeneralException {
+		return stateService.getStateData();
 	}
 	
 	//Invoice and Invoice Items : 
