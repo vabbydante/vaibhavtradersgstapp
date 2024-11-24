@@ -1,6 +1,5 @@
 package com.vaibhavtraders.controller;
 
-import java.time.Month;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +21,7 @@ import com.vaibhavtraders.entity.InvoiceItem;
 import com.vaibhavtraders.exception.GeneralException;
 import com.vaibhavtraders.requests.InvoiceCreationUpdationRequest;
 import com.vaibhavtraders.requests.InvoiceMonthYearRequest;
+import com.vaibhavtraders.response.CountryData;
 import com.vaibhavtraders.response.ResponseObject;
 import com.vaibhavtraders.response.StateData;
 import com.vaibhavtraders.service.CountryService;
@@ -132,6 +132,11 @@ public class VaibhavTradersRestController {
 		return countryService.deleteCountry(countryDTO);
 	}
 	
+	@GetMapping("/countries/countrydata.vt")
+	public List<CountryData> getCountryData() throws GeneralException {
+		return countryService.getCountryData();
+	}
+	
 	//Delivery Modes
 	@PostMapping("/deliverymodes/add")
 	public ResponseObject createDeliveryMode(@RequestBody DeliveryModeDTO deliveryModeDTO) throws GeneralException {
@@ -171,7 +176,7 @@ public class VaibhavTradersRestController {
 		return stateService.deleteState(stateDTO);
 	}
 	
-	@GetMapping("/states/statedata")
+	@GetMapping("/states/statedata.vt")
 	public List<StateData> getStateData() throws GeneralException {
 		return stateService.getStateData();
 	}

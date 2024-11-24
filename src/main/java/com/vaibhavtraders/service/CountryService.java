@@ -11,8 +11,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import com.vaibhavtraders.bo.CountryBO;
 import com.vaibhavtraders.dto.CountryDTO;
 import com.vaibhavtraders.entity.Country;
+import com.vaibhavtraders.entity.State;
 import com.vaibhavtraders.exception.GeneralException;
+import com.vaibhavtraders.response.CountryData;
 import com.vaibhavtraders.response.ResponseObject;
+import com.vaibhavtraders.response.StateData;
 
 @Service
 public class CountryService {
@@ -110,5 +113,29 @@ public class CountryService {
 			responseObject.setFailureMessage("Error while deleting country with ID : " + countryDTO.getCountryID());
 		}
 		return responseObject;
+	}
+	
+	/**
+	 * Method to return State Data for State Dropdowns
+	 */
+	public List<CountryData> getCountryData() {
+		logger.info("getCountryData method triggered.");
+		List<CountryData> countryData = new ArrayList<CountryData>();
+		List<Country> allCountries = new ArrayList<Country>();
+		try {
+			allCountries = countryBO.findAllCountries();
+			if(allCountries.size() > 0) {
+				for (Country country : allCountries) {
+					CountryData ctryData = new CountryData();
+					ctryData.setId(country.getCountryID());
+					ctryData.setName(country.getCountryName());
+					countryData.add(ctryData);
+				}
+			}
+		} catch (Exception e) {
+			logger.error("Error inside getCountryData method in CountryService", e);
+			e.printStackTrace();
+		}
+		return countryData;
 	}
 }
