@@ -3,6 +3,9 @@ package com.vaibhavtraders.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -11,12 +14,14 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.vaibhavtraders.dao.UserDetailsRepository;
 import com.vaibhavtraders.dto.CountryDTO;
 import com.vaibhavtraders.dto.CustomerDTO;
 import com.vaibhavtraders.dto.DeliveryModeDTO;
 import com.vaibhavtraders.dto.InvoiceDTO;
 import com.vaibhavtraders.dto.ProductDTO;
 import com.vaibhavtraders.dto.StateDTO;
+import com.vaibhavtraders.entity.Auth;
 import com.vaibhavtraders.entity.InvoiceItem;
 import com.vaibhavtraders.exception.GeneralException;
 import com.vaibhavtraders.requests.InvoiceCreationUpdationRequest;
@@ -31,6 +36,7 @@ import com.vaibhavtraders.service.InvoiceItemService;
 import com.vaibhavtraders.service.InvoiceService;
 import com.vaibhavtraders.service.ProductService;
 import com.vaibhavtraders.service.StateService;
+import com.vaibhavtraders.service.UserService;
 
 @CrossOrigin(origins="http://localhost:3000")
 @RestController
@@ -56,6 +62,15 @@ public class VaibhavTradersRestController {
 	
 	@Autowired
 	StateService stateService;
+	
+	@Autowired
+    private UserService userService;
+	
+	@Autowired
+    private UserDetailsRepository userDetailsRepository;  // Inject your repository to check for duplicates
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 	
 	//Products
 	@PostMapping("/products/add.vt")
@@ -245,5 +260,22 @@ public class VaibhavTradersRestController {
     @GetMapping("/invoiceitem/byInvoice/{invoiceId}")
     public ResponseObject findInvoiceItemsByInvoice(@PathVariable Long invoiceId) throws GeneralException {
         return (ResponseObject) invoiceItemService.findInvoiceItemsByInvoice(invoiceId);
+    }
+    
+    /*Auth Implementation Phase 1*/
+    @PostMapping("/register.vt")
+    public ResponseEntity<String> registerUser(@RequestBody Auth user) {
+        // Check if user with the same username already exists
+        if (userDetailsRepository.existsByUsername(user.getUsername())) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body("Username already exists");
+        }
+
+        // Encrypt the password before saving
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        
+        // Save the user
+        userService.saveUser(user);
+        
+        return ResponseEntity.status(HttpStatus.CREATED).body("User registered successfully");
     }
 }
